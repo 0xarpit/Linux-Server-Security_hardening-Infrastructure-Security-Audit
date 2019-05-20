@@ -1,0 +1,2469 @@
+#!/bin/sh
+
+
+#------------------------------------------------------------------------------------------------------------------------------
+# Linux_Security_Audit_Checks (RHEL)
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# Expected output: System Checks Completed
+#------------------------------------------------------------------------------------------------------------------------------
+# GUIDE
+#------------------------------------------------------------------------------------------------------------------------------
+# HOW TO USE
+#
+# The script should be executed as root with bash.
+# eg:
+#==>   bash Linux_HBA.sh
+#			or
+# Make the file executable with root privileges: 
+#
+#==>	chmod a+x Linux_HBA 
+#
+#Run it as below - 
+#==>	./Linux_HBA.sh
+#
+#------------------------------------------------------------------------------------------------------------------------------
+# A series of checks are executed
+# No modifications are performed
+#
+# Running this script should produce no result except the phrase
+# "System Checks Completed".
+# If there is any other output, then one or more warnings have been issued
+#
+# There will be an archive created once the script completes.
+#-------------------------------------------------------------------------------------------------------------
+
+tput setaf 2;
+
+echo "As part of APT 2019 - this HBA script will perform certain checks on this system"
+
+echo "No changes will be made to system"
+
+echo "It may create some warnings.";
+
+echo "Initializing script...";
+
+tput sgr0;
+
+sleep 1s
+
+echo "."
+
+sleep 1s
+
+echo "" > Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Find your output below..." >> Auditcheck2.txt
+
+
+echo "-----------1.Ensure no legacy "+" entries exist in /etc/passwd----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep '^\+:' /etc/passwd >> Auditcheck2.txt
+
+echo "-----------1.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+:' echo "This commented part should not execute if it does code needs some changes" >> Auditcheck2.txt
+
+echo "-----------1.Check if a Firewall is enabled------------------------------------------------------" >> Auditcheck2.txt
+
+sudo iptables -L >> Auditcheck2.txt
+
+echo "-----------1.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------2.Boot Directory Permissions----------------------------------------------------------" >> Auditcheck2.txt
+
+ls -ld /boot >> Auditcheck2.txt
+
+echo "-----------2.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------3.List Of Installed Packages----------------------------------------------------------" >> Auditcheck2.txt
+
+yum list installed >> Auditcheck2.txt
+
+#OR
+
+echo "" >> Auditcheck2.txt
+
+rpm -qa >> Auditcheck2.txt
+
+echo "-----------3.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------4.List Of Open Ports------------------------------------------------------------------" >> Auditcheck2.txt
+
+netstat -l >> Auditcheck2.txt
+
+echo "-----------4.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------5.Ensure no legacy "+" entries exist in /etc/shadow----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep '^\+:' /etc/shadow >> Auditcheck2.txt
+
+echo "-----------5.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------6.Network Parameters in /etc/sysctl.conf---------------------------------------------" >> Auditcheck2.txt
+
+echo "More Details" >> Auditcheck2.txt
+
+echo "Verify if IP frowarding disabled " >> Auditcheck2.txt
+
+echo "Check if Send Packet Redirect Disabled" >> Auditcheck2.txt
+
+echo "Verify if ICMP Redirect Acceptance is disabled" >> Auditcheck2.txt
+
+echo "Verify if Bad Error Message Protection is enabled" >> Auditcheck2.txt
+
+cat /etc/sysctl.conf >>Auditcheck2.txt
+
+echo "-----------6.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------7.Ensure root is the only UID 0 account----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/passwd | awk -F: '($3 == 0) { print $1 }' >> Auditcheck2.txt
+
+echo "-----------7.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------8.Verify if User/Group Owner and Permission set on sensitive files-------------------" >> Auditcheck2.txt
+
+echo "File permissions /etc/anacrontab:" >> Auditcheck2.txt
+
+ls -l /etc/anacrontab >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/crontab:" >> Auditcheck2.txt
+
+ls -l /etc/crontab >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/cron.hourly:" >> Auditcheck2.txt
+
+ls -l /etc/cron.hourly >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/cron.daily:" >> Auditcheck2.txt
+
+ls -l /etc/cron.daily >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+
+echo "File permissions /etc/cron.weekly:" >> Auditcheck2.txt
+
+ls -l /etc/cron.weekly >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "File permissions /etc/cron.monthly:" >> Auditcheck2.txt
+
+ls -l /etc/cron.monthly >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /var/spool/cron:" >> Auditcheck2.txt
+
+ls -l /var/spool/cron >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/passwd:" >> Auditcheck2.txt
+
+ls -l /etc/passwd >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/group:" >> Auditcheck2.txt
+
+ls -l /etc/group >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/shadow:" >> Auditcheck2.txt
+
+ls -l /etc/shadow >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "File permissions /etc/gshadow:" >> Auditcheck2.txt
+
+ls -l /etc/gshadow >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------8.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------9.Ensure no legacy "+" entries exist in /etc/group-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep '^\+:' /etc/group >> Auditcheck2.txt
+
+echo "-----------9.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------10.Verify if Root Login Disabled-----------------------------------------------------" >> Auditcheck2.txt
+
+sudo grep root /etc/shadow >> Auditcheck2.txt
+
+echo "-----------10.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------11.Ensure no ungrouped files or directories exist-------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup >> Auditcheck2.txt
+
+echo "-----------11.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------12.Ensure password fields are not empty-----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -4000 >> Auditcheck2.txt
+
+echo "-----------12.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------13.System Accounting with auditd (auditd configuration)-------------------------------" >> Auditcheck2.txt
+
+cat /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "-----------13.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------14.verify if openssh configured correctly---------------------------------------------" >> Auditcheck2.txt
+
+cat /etc/pki/tls/openssl.cnf  >> Auditcheck2.txt
+
+echo "-----------14.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------15.Verify if Interactive Boot Disabled------------------------------------------------" >> Auditcheck2.txt
+
+echo "Verify that prompt set to no" >> Auditcheck2.txt
+
+#cat /etc/sysconfig/init  >> Auditcheck2.txt
+
+grep PROMPT /etc/sysconfig/init >> Auditcheck2.txt
+
+echo "-----------15.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------16.Verify if Remote Logging enabled Properly------------------------------------------" >> Auditcheck2.txt
+
+echo "It is necessory to maintain log for user login through remote session." >> Auditcheck2.txt
+
+cat /etc/rsyslog.conf  >> Auditcheck2.txt
+
+echo "-----------16.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+#167th at 17 th place
+
+echo "-----------17.Ensure no unowned files or directories exist---------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Files not owned by group "find / -nogroup":" >> Auditcheck2.txt
+
+find / -nogroup >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#find <partition> -xdev -nouser >> Auditcheck2.txt
+
+echo "-----------17.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------18.Separation Of the operating system files-------------------------------------------" >> Auditcheck2.txt
+
+echo "Make sure the following filesystems are mounted on separate partitions: /usr, /home,/var and /var/tmp,/tmp." >> Auditcheck2.txt
+
+df -h  >> Auditcheck2.txt
+
+echo "-----------18.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------19.Verify if Disk Quota is enabled for disk-------------------------------------------" >> Auditcheck2.txt
+
+echo "4th field shows quota type otherwise it is set to defaults." >> Auditcheck2.txt
+
+cat /etc/fstab  >> Auditcheck2.txt
+
+echo "-----------19.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------20.Verify if IPV6 is enabled though it is not required--------------------------------" >> Auditcheck2.txt
+
+ifconfig >> Auditcheck2.txt
+
+lsmod|grep ipv6 >> Auditcheck2.txt
+
+echo "-----------20.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------21.Check for any unnecessary services and daemons at boot time------------------------" >> Auditcheck2.txt
+
+echo "SysV services at boot time." >> Auditcheck2.txt
+
+chkconfig --list | grep '3:on' >> Auditcheck2.txt
+
+echo "Native or systemd services at run time." >> Auditcheck2.txt
+
+systemctl list-unit-files >> Auditcheck2.txt
+
+echo "-----------21.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------22.Additional process hardening-------------------------------------------------------" >> Auditcheck2.txt
+
+echo "1) Restrict core dumps:" >> Auditcheck2.txt
+
+echo "A) verify if hard core 0 in grep @hard core@ /etc/security/limits.conf /etc/security/limits.d/*" >> Auditcheck2.txt
+
+echo "@ used instead of double quotes in above comment" >> Auditcheck2.txt
+
+grep "hard core" /etc/security/limits.conf /etc/security/limits.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "B)verify if fs.suid_dumpable = 0  in @sysctl fs.suid_dumpable@" >> Auditcheck2.txt
+
+echo "In above comment @ used instead of double quotes for writing the same in file using echo." >> Auditcheck2.txt
+
+sysctl fs.suid_dumpable >> Auditcheck2.txt
+
+echo "C) verify if fs.suid_dumpable = 0 in grep @fs\.suid_dumpable@ /etc/sysctl.conf /etc/sysctl.d/*" >> Auditcheck2.txt
+
+echo "In above comment @ used instead of double quotes for writing the same in file using echo." >> Auditcheck2.txt
+
+grep "fs\.suid_dumpable" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "See the output of below command: i.e. 2)Configure Exec Shield:" >> Auditcheck2.txt
+
+echo "-----------22.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------23.Verify if services below are running(FTP(20/21)telnet(23)Rlogin/Rsh(513))----------" >> Auditcheck2.txt
+
+echo "Verify if "service telnet status" is set to running" >> Auditcheck2.txt
+
+service telnet status >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Verify if "service ftp status" is set to running" >> Auditcheck2.txt
+
+service ftp status >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Verify if "service Rlogin status" is set to running" >> Auditcheck2.txt
+
+service Rlogin status >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Verify if "service Rsh status" is set to running" >> Auditcheck2.txt
+
+service Rsh status >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------23.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------24.Ensure mounting of unneeded filesystems is disabled--------------------------------" >> Auditcheck2.txt
+
+echo "Removing support for unneeded filesystem types reduces the local attack surface of the server. If this filesystem type is not needed, disable it." >> Auditcheck2.txt
+
+echo "Run the following commands and verify the output is as indicated:" >> Auditcheck2.txt
+
+echo "# modprobe -n -v cramfs " >> Auditcheck2.txt
+
+echo "output for above command mainstall /bin/true Or some error" >> Auditcheck2.txt
+
+echo "# lsmod | grep cramfs" >> Auditcheck2.txt
+
+echo "<No Output>" >> Auditcheck2.txt
+
+ echo "1.Ensure mounting of cramfs filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v cramfs >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep cramfs >> Auditcheck2.txt
+
+echo "End 24.1" >> Auditcheck2.txt
+
+echo "2.Ensure mounting of freevxfs filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v freevxfs >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep freevxfs >> Auditcheck2.txt
+
+echo "End 24.2" >> Auditcheck2.txt
+
+echo "3.Ensure mounting of jffs2 filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v jffs2 >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep jffs2 >> Auditcheck2.txt
+
+echo "End 24.3" >> Auditcheck2.txt
+
+echo "4.Ensure mounting of hfs filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v hfs >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep hfs >> Auditcheck2.txt
+
+echo "End 24.4" >> Auditcheck2.txt
+
+echo "5.Ensure mounting of hfsplus filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v hfsplus >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep hfsplus >> Auditcheck2.txt
+
+echo "End 24.5" >> Auditcheck2.txt
+
+echo "6.Ensure mounting of squashfs filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v squashfs >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep squashfs >> Auditcheck2.txt
+
+echo "End 24.6" >> Auditcheck2.txt
+
+echo "7.Ensure mounting of udf filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v udf >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep udf >> Auditcheck2.txt
+
+echo "End 24.7" >> Auditcheck2.txt
+
+echo "8.Ensure mounting of FAT filesystems is disabled" >> Auditcheck2.txt
+
+echo modprobe -n -v vfat >> Auditcheck2.txt
+
+echo "End" >> Auditcheck2.txt
+
+echo lsmod | grep vfat >> Auditcheck2.txt
+
+echo "End 24.8" >> Auditcheck2.txt
+
+echo "-----------24.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------25.Ensure noexec option set on /tmp partition-----------------------------------------" >> Auditcheck2.txt
+
+echo "If a /tmp partition exists below command and verify that the noexec option is set on /tmp:." >> Auditcheck2.txt
+
+mount | grep /tmp >> Auditcheck2.txt
+
+echo "Output can be: tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noexec,relatime)" >> Auditcheck2.txt
+
+echo "-----------25.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------26.Ensure nodev, noexec, nosuid option set on /var/tmp partition--------------------------" >> Auditcheck2.txt
+
+echo "If a /var/tmp partition exists run below command and verify that the nodev,noexec, nosuid option is set on /var/tmp." >> Auditcheck2.txt
+
+mount | grep /var/tmp >> Auditcheck2.txt
+
+echo "Output can be: tmpfs on /var/tmp type tmpfs (rw,nosuid,nodev,noexec,relatime)" >> Auditcheck2.txt
+
+echo "-----------26.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------27.Ensure nodev, noexec, nosuid option set on /dev/shm partition--------------------------" >> Auditcheck2.txt
+
+echo "If a /var/tmp partition exists run below command and verify that the nodev, noexec, nosuid option is set on /dev/shm." >> Auditcheck2.txt
+
+mount | grep /dev/shm >> Auditcheck2.txt
+
+echo "Output can be: tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,noexec,relatime)" >> Auditcheck2.txt
+
+echo "-----------27.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------28.Ensure noexec, nosuid, nodev option set on removable media partitions--------------" >> Auditcheck2.txt
+
+echo "Run below command and verify that the nodev, noexec, nosuid option is set on removable media partitions." >> Auditcheck2.txt
+
+mount >> Auditcheck2.txt
+
+echo "-----------28.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------29.Verify if automounting is enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify result is not "enabled":" >> Auditcheck2.txt
+
+systemctl is-enabled autofs >> Auditcheck2.txt
+
+echo "If Output is enabled then it is a finding)" >> Auditcheck2.txt
+
+echo "-----------29.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------30.Ensure gpgcheck is globally activated----------------------------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify gpgcheck is set to ' 1 ':" >> Auditcheck2.txt
+
+grep ^gpgcheck /etc/yum.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep ^gpgcheck /etc/yum.repos.d/* >> Auditcheck2.txt
+
+echo "-----------30.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------31.Ensure AIDE is installed-----------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure AIDE is installed." >> Auditcheck2.txt
+
+rpm -q aide >> Auditcheck2.txt
+
+echo "-----------31.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------32.Ensure filesystem integrity is regularly checked.----------------------------------" >> Auditcheck2.txt
+
+echo "Run the following commands to determine if there is a cron job scheduled to run the aide check." >> Auditcheck2.txt
+
+crontab -u root -l | grep aide >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep -r aide /etc/cron.* /etc/crontab >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Ensure a cron job in compliance with site policy is returned." >> Auditcheck2.txt
+
+echo "-----------32.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------33.Ensure permissions on bootloader config are configured-----------------------------" >> Auditcheck2.txt
+
+echo "Run the following commands and verify Uid and Gid are both 0/root and Access does not grant permissions to group or other:" >> Auditcheck2.txt
+
+
+
+stat /boot/grub2/grub.cfg >> Auditcheck2.txt
+
+echo "Expected output : Access: (0600/-rw-------) Uid: ( 0/ root) Gid: ( 0/ root)" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /boot/grub2/user.cfg >> Auditcheck2.txt
+
+echo "Expected output : Access: (0600/-rw-------) Uid: ( 0/ root) Gid: ( 0/ root)" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------33.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------34.Ensure bootloader password is set--------------------------------------------------" >> Auditcheck2.txt
+
+grep "^GRUB2_PASSWORD" /boot/grub2/grub.cfg >> Auditcheck2.txt
+
+echo "Expected output is : GRUB2_PASSWORD=<encrypted-password>." >> Auditcheck2.txt
+
+echo "-----------34.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------35.Ensure authentication required for single user mode--------------------------------" >> Auditcheck2.txt
+
+echo "Run the following commands and verify that /sbin/sulogin or /usr/sbin/sulogin is used as shown: in expected output" >> Auditcheck2.txt
+
+grep /sbin/sulogin /usr/lib/systemd/system/rescue.service >> Auditcheck2.txt
+
+echo "Expected output is : ExecStart=-/bin/sh -c @/sbin/sulogin; /usr/bin/systemctl --fail --no-block default@ " >> Auditcheck2.txt
+
+echo "In above comment @ used instead of double quotes for writing the same in file using echo." >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep /sbin/sulogin /usr/lib/systemd/system/emergency.service >> Auditcheck2.txt
+
+echo "Expected output is : ExecStart=-/bin/sh -c @/sbin/sulogin; /usr/bin/systemctl --fail --no-block default@ ">> Auditcheck2.txt
+
+echo "In above comment @ used instead of double quotes for writing the same in file using echo." >> Auditcheck2.txt
+
+echo "-----------35.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------36.Ensure address space layout randomization (ASLR) is enabled------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify output matches:" >> Auditcheck2.txt
+
+sysctl kernel.randomize_va_space >> Auditcheck2.txt
+
+echo "Expected output is : kernel.randomize_va_space = 2." >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "kernel\.randomize_va_space" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "Expected output is : kernel.randomize_va_space = 2." >> Auditcheck2.txt
+
+echo "-----------36.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------37.Ensure prelink is disabled---------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify prelink is not installed:" >> Auditcheck2.txt
+
+rpm -q prelink >> Auditcheck2.txt
+
+echo "Expected output is : package prelink is not installed" >> Auditcheck2.txt
+
+echo "-----------37.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------38.Ensure SELinux is not disabled in bootloader configuration-------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify that no linux line has the selinux=0 or enforcing=0 parameters set:" >> Auditcheck2.txt
+
+grep "^\s*linux" /boot/grub2/grub.cfg >> Auditcheck2.txt
+
+echo "-----------38.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------39.Ensure the SELinux state is enforcing-------------------------" >> Auditcheck2.txt
+
+echo "Run the following commands and ensure output matches:" >> Auditcheck2.txt
+
+grep SELINUX=enforcing /etc/selinux/config >> Auditcheck2.txt
+
+echo "Expected output is : SELINUX=enforcing " >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#grep sestatus >> Auditcheck2.txt
+
+#echo "Expected output is : SELinux status: enabled Current mode: enforcing Mode from config file: enforcing " >> Auditcheck2.txt
+
+echo "-----------39.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------40.Ensure SETroubleshoot is not installed---------------------------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify setroubleshoot is not installed:" >> Auditcheck2.txt
+
+rpm -q setroubleshoot >> Auditcheck2.txt
+
+echo "Expected output is : package setroubleshoot is not installed." >> Auditcheck2.txt
+
+echo "-----------40.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------41.Ensure the MCS Translation Service (mcstrans) is not installed---------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify mcstrans is not installed:" >> Auditcheck2.txt
+
+rpm -q mcstrans >> Auditcheck2.txt
+
+echo "Expected output is : package mcstrans is not installed." >> Auditcheck2.txt
+
+echo "-----------41.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------42.Ensure message of the day is configured properly-----------------------------------" >> Auditcheck2.txt
+
+echo "Run the following command and verify that the contents match site policy:" >> Auditcheck2.txt
+
+cat /etc/motd >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "Run the following command and verify no results are returned:" >> Auditcheck2.txt
+
+egrep '(\\v|\\r|\\m|\\s)' /etc/motd >> Auditcheck2.txt
+
+echo "-----------42.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------43.Ensure permissions on /etc/issue are configured------------------------------------" >> Auditcheck2.txt
+
+echo "Run the following commands to set permissions on /etc/issue :" >> Auditcheck2.txt
+
+stat /etc/issue >> Auditcheck2.txt
+
+echo "-----------43.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------44.Ensure GDM login banner is configured------------------------------------" >> Auditcheck2.txt
+
+echo "Check GDM configuration:" >> Auditcheck2.txt
+
+cat /etc/dconf/profile/gdm >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "verify the banner-message-enable and banner-message-text options are configured in one of the files in the /etc/dconf/db/gdm.d/ directory:" >> Auditcheck2.txt
+
+cat /etc/dconf/db/gdm.d/01-banner-message >> Auditcheck2.txt
+
+echo "-----------44.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------45.Ensure updates, patches, and additional security software are installed------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+yum check-update --security >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#OR
+
+yum updateinfo list security all >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#OR
+
+yum updateinfo list sec >> Auditcheck2.txt
+
+echo "-----------45.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------46.Ensure chargen services are not enabled--------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure daytime services are not enabled----------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure discard services are not enabled----------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure echo services are not enabled-------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure time services are not enabled-------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "Ensure tftp server is not enabled----------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+chkconfig --list >> Auditcheck2.txt
+
+echo "-----------46.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------47.Ensure xinetd is not enabled-------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled xinetd >> Auditcheck2.txt
+
+echo "-----------47.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------48.Ensure ntp is configured-----------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^restrict" /etc/ntp.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^(server|pool)" /etc/ntp.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^OPTIONS" /etc/sysconfig/ntpd >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^ExecStart" /usr/lib/systemd/system/ntpd.service >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------48.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------49.Ensure chrony is configured--------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^(server|pool)" /etc/chrony.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep ^OPTIONS /etc/sysconfig/chronyd >> Auditcheck2.txt
+
+echo "-----------49.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------50.Ensure X Window System is not installed--------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -qa xorg-x11* >> Auditcheck2.txt
+
+echo "-----------50.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------51.Ensure Avahi Server is not enabled-------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled avahi-daemon >> Auditcheck2.txt
+
+echo "-----------51.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------52.Ensure CUPS is not enabled---------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled cups >> Auditcheck2.txt
+
+echo "-----------52.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------53.Ensure DHCP Server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled dhcpd >> Auditcheck2.txt
+
+echo "-----------53.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------54.Ensure LDAP server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled slapd >> Auditcheck2.txt
+
+echo "-----------54.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------55.Ensure NFS and RPC are not enabled-------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled nfs >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled nfs-server >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rpcbind >> Auditcheck2.txt
+
+echo "-----------55.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------56.Ensure DNS Server is not enabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled named >> Auditcheck2.txt
+
+echo "-----------56.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------57.Ensure FTP Server is not enabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled vsftpd >> Auditcheck2.txt
+
+echo "-----------57.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------58.Ensure HTTP server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled httpd >> Auditcheck2.txt
+
+echo "-----------58.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------59.Ensure IMAP and POP3 server is not enabled-----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled dovecot >> Auditcheck2.txt
+
+echo "-----------59.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------60.Ensure Samba is not enabled--------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled smb >> Auditcheck2.txt
+
+echo "-----------5960.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------61.Ensure HTTP Proxy Server is not enabled----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled squid >> Auditcheck2.txt
+
+echo "-----------61.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------62.Ensure SNMP Server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled snmpd >> Auditcheck2.txt
+
+echo "-----------62.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------63.Ensure mail transfer agent is configured for local-only mode-----------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+netstat -an | grep LIST | grep ":25[[:space:]]" >> Auditcheck2.txt
+
+echo "-----------63.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------64.Ensure NIS Server is not enabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled ypserv >> Auditcheck2.txt
+
+echo "-----------64.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------65.Ensure rsh server is not enabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rsh.socket >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rlogin.socket >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rexec.socket >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------65.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------66.Ensure talk server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled ntalk >> Auditcheck2.txt
+
+echo "-----------66.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------67.Ensure telnet server is not enabled------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled telnet.socket >> Auditcheck2.txt
+
+echo "-----------67.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------68.Ensure tftp server is not enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled tftp.socket >> Auditcheck2.txt
+
+echo "-----------68.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------69.Ensure rsync service is not enabled------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rsyncd >> Auditcheck2.txt
+
+echo "-----------69.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------70.Ensure NIS Client is not installed-------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q ypbind >> Auditcheck2.txt
+
+echo "-----------70.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------71.Ensure rsh client is not installed------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q rsh >> Auditcheck2.txt
+
+echo "-----------71.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------72.Ensure talk client is not installed------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q talk >> Auditcheck2.txt
+
+echo "-----------72.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------73.Ensure telnet client is not installed----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q telnet >> Auditcheck2.txt
+
+echo "-----------73.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------74.Ensure LDAP client is not installed------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q openldap-clients >> Auditcheck2.txt
+
+echo "-----------74.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------75.Ensure IP forwarding is disabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.ip_forward >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.ip_forward" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "-----------75.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------76.Ensure packet redirect sending is disabled-----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.send_redirects >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.default.send_redirects >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.send_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.send_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------76.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------77.Ensure source routed packets are not accepted--------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.accept_source_route >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.default.accept_source_route >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.accept_source_route" /etc/sysctl.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.accept_source_route" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------77.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------78.Ensure ICMP redirects are not accepted--------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.accept_redirects >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.default.accept_redirects >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.accept_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.accept_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------78.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------79.Ensure secure ICMP redirects are not accepted--------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.secure_redirects >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.secure_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.secure_redirects" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------79.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------80.Ensure suspicious packets are logged-----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.log_martians >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.default.log_martians >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.log_martians" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.log_martians" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "-----------80.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------81.Ensure SSH access is limited-------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^AllowUsers" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^AllowGroups" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^DenyUsers" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^DenyGroups" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------81.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------82.Ensure no world writable files exist-----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#find <partition> -xdev -type f -perm -0002 >> Auditcheck2.txt
+
+echo "-----------82.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------83.Ensure broadcast ICMP requests are ignored-----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.icmp_echo_ignore_broadcasts >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.icmp_echo_ignore_broadcasts" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------83.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------84.Ensure bogus ICMP responses are ignored--------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.icmp_ignore_bogus_error_responses net.ipv4.icmp_ignore_bogus_error_responses = 1  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.icmp_ignore_bogus_error_responses" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------84.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------85.Ensure Reverse Path Filtering is enabled-------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.all.rp_filter >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.conf.default.rp_filter >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.all\.rp_filter" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.conf\.default\.rp_filter" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------85.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------86.Ensure TCP SYN Cookies is enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+sysctl net.ipv4.tcp_syncookies >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "net\.ipv4\.tcp_syncookies" /etc/sysctl.conf /etc/sysctl.d/* >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------86.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------87.Ensure TCP Wrappers is installed---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q tcp_wrappers >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q tcp_wrappers-libs >> Auditcheck2.txt
+
+echo "-----------87.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------88.Ensure /etc/hosts.allow is configured----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/hosts.allow >> Auditcheck2.txt
+
+echo "-----------88.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------89.Ensure /etc/hosts.deny is configured----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/hosts.deny >> Auditcheck2.txt
+
+echo "-----------89.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------90.Ensure permissions on /etc/hosts.allow are configured------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/hosts.allow >> Auditcheck2.txt
+
+echo "-----------90.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------91.Ensure permissions on /etc/hosts.deny are configured-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/hosts.deny >> Auditcheck2.txt
+
+echo "-----------91.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------92.Ensure iptables is installed-------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q iptables >> Auditcheck2.txt
+
+echo "-----------92.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------93.Check if firewall policy enabled and Ensure default deny firewall policy-----------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+iptables -L >> Auditcheck2.txt
+
+echo "-----------93.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------94.Ensure loopback traffic is configured----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+iptables -L INPUT -v -n >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+iptables -L OUTPUT -v -n >> Auditcheck2.txt
+
+echo "-----------94.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------95.Ensure firewall rules exist for all open ports------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+netstat -ln >> Auditcheck2.txt
+
+echo "-----------95.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------96.Ensure system is disabled when audit logs are full---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep space_left_action /etc/audit/auditd.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep action_mail_acct /etc/audit/auditd.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep admin_space_left_action /etc/audit/auditd.conf >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------96.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------97.Ensure audit logs are not automatically deleted------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep max_log_file_action /etc/audit/auditd.conf >> Auditcheck2.txt
+
+echo "-----------97.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------98.Ensure auditd service is enabled---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled auditd >> Auditcheck2.txt
+
+echo "-----------98.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------99.Ensure auditing for processes that start prior to auditd is enabled----------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^\s*linux" /boot/grub2/grub.cfg >> Auditcheck2.txt
+
+echo "-----------99.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------100.Ensure events that modify date and time information are collected----------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep time-change /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep time-change >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep time-change /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep time-change >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------100.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------101.Ensure events that modify user/group information are collected---------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep identity /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep identity >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------101.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------102.Ensure events that modify the system's network environment are collected----------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep system-locale /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep system-locale >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------102.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------103.Ensure events that modify the system's Mandatory Access Controls are collected-----" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep MAC-policy /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "-----------103.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------104.Ensure login and logout events are collected---------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep logins /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "-----------104.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------104.Ensure session initiation information is collected---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep session /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep session >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep logins /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep logins >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------104.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------105.Ensure discretionary access control permission modification events are collected---" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep perm_mod /etc/audit/audit.rules  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep perm_mod >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------105.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------106.Ensure unsuccessful unauthorized file access attempts are collected----------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep access /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep access >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep access /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep access >> Auditcheck2.txt
+
+echo "-----------106.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------107.Ensure use of privileged commands is collected-------------------------------------" >> Auditcheck2.txt
+
+echo "List of disk partition:" >> Auditcheck2.txt
+
+fdisk -l >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#After getting list of the partition 
+
+#find <partition> -xdev \( -perm -4000 -o -perm -2000 \) -type f | awk '{print \ "-a always,exit -F path=" $1 " -F perm=x -F auid>=1000 -F auid!=4294967295 \ -k privileged" }'>> Auditcheck2.txt
+
+echo "-----------107.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------108.Ensure successful file system mounts are collected---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep mounts /etc/audit/audit.rules  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep mounts >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------108.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------109.Ensure file deletion events by users are collected---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep delete /etc/audit/audit.rules  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep delete >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep delete /etc/audit/audit.rules  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep delete >> Auditcheck2.txt
+
+echo "-----------109.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------110.Ensure changes to system administration scope (sudoers) is collected---------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep scope /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep scope >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------110.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------111.Ensure system administrator actions (sudolog) are collected------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep actions /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+auditctl -l | grep actions >> Auditcheck2.txt
+
+echo "-----------111.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------112.Ensure kernel module loading and unloading is collected----------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep modules /etc/audit/audit.rules >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+ auditctl -l | grep modules >> Auditcheck2.txt
+
+echo "-----------112.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------113.Ensure the audit configuration is immutable----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^\s*[^#]" /etc/audit/audit.rules | tail -1 >> Auditcheck2.txt
+
+echo "-----------113.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------114.Ensure rsyslog Service is enabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled rsyslog >> Auditcheck2.txt
+
+echo "-----------114.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------115.Ensure logging is configured--------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+ls -l /var/log/ >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/syslog-ng/syslog-ng.conf >> Auditcheck2.txt
+
+echo "-----------115.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------116.Ensure rsyslog default file permissions configured---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep ^\$FileCreateMode /etc/rsyslog.conf /etc/rsyslog.d/*.conf >> Auditcheck2.txt
+
+echo "-----------116.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------117.Ensure rsyslog is configured to send logs to a remote log host---------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^*.*[^I][^I]*@" /etc/rsyslog.conf /etc/rsyslog.d/*.conf >> Auditcheck2.txt
+
+echo "-----------117.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------118.Ensure syslog-ng service is enabled------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#if syslog-ng is installed then only we can check for this config
+
+systemctl is-enabled syslog-ng >> Auditcheck2.txt
+
+echo "-----------118.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------119.Ensure syslog-ng default file permissions configured-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+#if syslog-ng is installed then only we can check for this config
+
+grep ^options /etc/syslog-ng/syslog-ng.conf >> Auditcheck2.txt
+
+echo "-----------119.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------120.Ensure rsyslog or syslog-ng is installed-------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q rsyslog >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+rpm -q syslog-ng >> Auditcheck2.txt
+
+echo "-----------120.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------121.Ensure permissions on all logfiles are configured----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+find /var/log -type f -ls >> Auditcheck2.txt
+
+echo "-----------121.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------122.Ensure cron daemon is enabled------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+systemctl is-enabled crond >> Auditcheck2.txt
+
+echo "-----------122.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------123.Ensure permissions on /etc/crontab are configured----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/crontab >> Auditcheck2.txt
+
+echo "-----------123.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------124.Ensure permissions on /etc/cron.hourly are configured------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.hourly >> Auditcheck2.txt
+
+echo "-----------124.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------125.Ensure permissions on /etc/cron.daily are configured-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.daily >> Auditcheck2.txt
+
+echo "-----------125.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------126.Ensure permissions on /etc/cron.weekly are configured------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.weekly >> Auditcheck2.txt
+
+echo "-----------126.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------127.Ensure permissions on /etc/cron.monthly are configured-----------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.monthly >> Auditcheck2.txt
+
+echo "-----------127.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------128.Ensure permissions on /etc/cron.d are configured-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+ stat /etc/cron.d>> Auditcheck2.txt
+
+echo "-----------128.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------129.Ensure at/cron is restricted to authorized users-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.deny >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/at.deny >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/cron.allow >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/at.allow >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------129.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------130.Ensure permissions on /etc/ssh/sshd_config are configured--------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------130.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------131.Ensure SSH Protocol is set to 2----------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^Protocol" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------131.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------132.Ensure SSH LogLevel is set to INFO-------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^LogLevel" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------132.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------133.Ensure SSH X11 forwarding is disabled----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^X11Forwarding" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------133.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------134.Ensure SSH MaxAuthTries is set to 4 or less----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^MaxAuthTries" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------134.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------135.Ensure SSH IgnoreRhosts is enabled-------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^IgnoreRhosts" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------135.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------136.Ensure SSH HostbasedAuthentication is disabled-------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^HostbasedAuthentication" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------136.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------137.Ensure SSH root login is disabled--------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^PermitRootLogin" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------137.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------138.Ensure SSH PermitEmptyPasswords is disabled----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^PermitEmptyPasswords" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------138.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------139.Ensure SSH PermitUserEnvironment is disabled---------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep PermitUserEnvironment /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------139.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------140.Ensure only approved MAC algorithms are used---------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "MACs" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------140.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------141.Ensure SSH Idle Timeout Interval is configured-------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^ClientAliveInterval" /etc/ssh/sshd_config  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^ClientAliveCountMax" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------141.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------142.Ensure SSH LoginGraceTime is set to one minute or less-----------------------------" >> Auditcheck2.txt
+
+grep "^LoginGraceTime" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------142.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------143.Ensure SSH warning banner is configured--------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^Banner" /etc/ssh/sshd_config >> Auditcheck2.txt
+
+echo "-----------143.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------144.Ensure password creation requirements are configured-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep pam_pwquality.so /etc/pam.d/password-auth 
+
+echo "" >> Auditcheck2.txt
+
+grep pam_pwquality.so /etc/pam.d/system-auth 
+
+echo "" >> Auditcheck2.txt
+
+grep ^minlen /etc/security/pwquality.conf 
+
+echo "" >> Auditcheck2.txt
+
+grep ^dcredit /etc/security/pwquality.conf 
+
+echo "" >> Auditcheck2.txt
+
+grep ^lcredit /etc/security/pwquality.conf 
+
+echo "" >> Auditcheck2.txt
+
+grep ^ocredit /etc/security/pwquality.conf 
+
+echo "" >> Auditcheck2.txt
+
+grep ^ucredit /etc/security/pwquality.conf  >> Auditcheck2.txt
+
+echo "-----------144.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------145.Ensure lockout for failed password attempts is configured--------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/pam.d/password-auth >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/pam.d/system-authcat /etc/pam.d/system-auth >> Auditcheck2.txt
+
+echo "-----------145.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+echo "-----------146.Ensure password reuse is limited---------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep '^password\s+sufficient\s+pam_unix.so' /etc/pam.d/password-auth  >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep '^password\s+sufficient\s+pam_unix.so' /etc/pam.d/system-auth >> Auditcheck2.txt
+
+echo "-----------146.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------147.Ensure password hashing algorithm is SHA-512---------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep '^password\s+sufficient\s+pam_unix.so' /etc/pam.d/password-auth >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep '^password\s+sufficient\s+pam_unix.so' /etc/pam.d/system-auth >> Auditcheck2.txt
+
+echo "-----------147.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------148.Ensure password expiration is 365 days or less----------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep PASS_MAX_DAYS /etc/login.defs >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 >> Auditcheck2.txt
+
+echo "-----------148.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------149.Ensure minimum days between password changes is 7 or more--------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep PASS_MIN_DAYS /etc/login.defs >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------149.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------150.Ensure password expiration warning days is 7 or more-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep PASS_WARN_AGE /etc/login.defs >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 >> Auditcheck2.txt
+
+echo "-----------150.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------151.Ensure inactive password lock is 30 days or less-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+useradd -D | grep INACTIVE >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 >> Auditcheck2.txt
+
+echo "-----------151.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------152.Ensure all users last password change date is in the past--------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+cat /etc/shadow | cut -d: -f1 >> Auditcheck2.txt
+
+echo "-----------152.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------153.Ensure system accounts are non-login-----------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+egrep -v "^\+" /etc/passwd | awk -F: '($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && $3<1000 && $7!="/sbin/nologin" && $7!="/bin/false") {print}' >> Auditcheck2.txt
+
+echo "-----------153.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------154.Ensure default group for the root account is GID 0---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^root:" /etc/passwd | cut -f4 -d: >> Auditcheck2.txt
+
+echo "-----------154.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------155.Ensure default user umask is 027 or more restrictive-------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "umask" /etc/bashrc >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "umask" /etc/profile /etc/profile.d/*.sh >> Auditcheck2.txt
+
+echo "-----------155.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------156.Ensure default user shell timeout is 900 seconds or less---------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^TMOUT" /etc/bashrc >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep "^TMOUT" /etc/profile >> Auditcheck2.txt
+
+echo "-----------156.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------157.Ensure access to the su command is restricted--------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep pam_wheel.so /etc/pam.d/su >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+grep wheel /etc/group >> Auditcheck2.txt
+
+echo "-----------157.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------158.Ensure permissions on /etc/passwd are configured-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/passwd >> Auditcheck2.txt
+
+echo "-----------158.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------159.Ensure permissions on /etc/shadow are configured-----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/shadow >> Auditcheck2.txt
+
+echo "-----------159.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------160.Ensure permissions on /etc/group are configured------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/group >> Auditcheck2.txt
+
+echo "-----------160.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------161.Ensure permissions on /etc/gshadow are configured----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/gshadow >> Auditcheck2.txt
+
+echo "-----------161.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------162.Ensure permissions on /etc/passwd- are configured----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/passwd- >> Auditcheck2.txt
+
+echo "-----------162.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------163.Ensure permissions on /etc/shadow- are configured----------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/shadow- >> Auditcheck2.txt
+
+echo "-----------163.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+echo "-----------164.Ensure permissions on /etc/group- are configured----------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/group- >> Auditcheck2.txt
+
+echo "-----------164.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------165.Ensure permissions on /etc/gshadow- are configured---------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+stat /etc/gshadow- >> Auditcheck2.txt
+
+echo "-----------165.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+
+echo "-----------166.Ensure separate partition exists for /var/log--------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+mount | grep /var/log >> Auditcheck2.txt
+
+echo "-----------166.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+
+
+echo "-----------167.Ensure separate partition exists for /var/log/audit--------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+mount | grep /var/log/audit >> Auditcheck2.txt
+
+echo "-----------167.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "-----------168.Ensure nodev option set on /home partition-----------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+mount | grep /home >> Auditcheck2.txt
+
+echo "-----------168.End Of Output----------------------------------------------------------------------" >> Auditcheck2.txt
+
+echo "" >> Auditcheck2.txt
+
+echo "."
+
+sleep 1s
+
+tput setaf 2;
+
+echo "System Checks Completed"
+
+sleep 1s
+
+echo "Output file generated: Auditcheck2.txt"
+
+sleep 1s
+
+tput sgr0;
+
+#-------------------------------------------------------------------------------------------------------------
+# Creating Archive
+#-------------------------------------------------------------------------------------------------------------
+zip Audit_check Auditcheck2.txt &> /dev/null;
+sleep 5
+#--------------------------------------------------------------------------------------------------------------
+# DONE
+#--------------------------------------------------------------------------------------------------------------
+
+echo "System Checks Completed"
